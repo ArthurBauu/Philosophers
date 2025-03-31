@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_int.c                                           :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arbaudou <arbaudou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/28 17:05:19 by arbaudou          #+#    #+#             */
-/*   Updated: 2025/03/31 16:11:06 by arbaudou         ###   ########.fr       */
+/*   Created: 2024/10/12 16:17:49 by arbaudou          #+#    #+#             */
+/*   Updated: 2024/10/12 16:36:16 by arbaudou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "libft.h"
 
-short	is_int(size_t size, char **arg)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
 	size_t	i;
-	char	*str;
+	size_t	j;	
+	size_t	sized;
+	size_t	sizes;
 
-	i = 1;
-	while (i < size)
+	sized = ft_strlen(dst);
+	sizes = ft_strlen(src);
+	if (size <= sized)
+		return (size + sizes);
+	i = sized;
+	j = 0;
+	while (src[j] != '\0' && i < (size - 1))
 	{
-		if (ft_strlen(arg[i]) > 12)
-			return (1);
-		if (ft_atol(arg[i]) > INT_MAX || ft_atol(arg[i]) < 1)
-			return (1);
-		str = arg[i];
-		if (*str == '-' || *str == '+')
-			str++;
-		while (*str)
-		{
-			if (*str < '0' || *str > '9')
-				return (1);
-			str++;
-		}
+		dst[i] = src[j];
 		i++;
+		j++;
 	}
-	return (0);
+	dst[i] = '\0';
+	return (sized + sizes);
 }

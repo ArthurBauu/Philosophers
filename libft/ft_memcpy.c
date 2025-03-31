@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_int.c                                           :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arbaudou <arbaudou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/28 17:05:19 by arbaudou          #+#    #+#             */
-/*   Updated: 2025/03/31 16:11:06 by arbaudou         ###   ########.fr       */
+/*   Created: 2024/10/14 15:39:08 by arbaudou          #+#    #+#             */
+/*   Updated: 2024/10/18 22:08:18 by arbaudou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "libft.h"
 
-short	is_int(size_t size, char **arg)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	size_t	i;
-	char	*str;
+	unsigned int	i;
+	unsigned char	*d;
+	unsigned char	*s;
 
-	i = 1;
-	while (i < size)
+	if (!dest && !src)
+		return (NULL);
+	i = 0;
+	d = (unsigned char *)dest;
+	s = (unsigned char *)src;
+	while (i < n)
 	{
-		if (ft_strlen(arg[i]) > 12)
-			return (1);
-		if (ft_atol(arg[i]) > INT_MAX || ft_atol(arg[i]) < 1)
-			return (1);
-		str = arg[i];
-		if (*str == '-' || *str == '+')
-			str++;
-		while (*str)
-		{
-			if (*str < '0' || *str > '9')
-				return (1);
-			str++;
-		}
+		d[i] = s[i];
 		i++;
 	}
-	return (0);
+	return (dest);
 }

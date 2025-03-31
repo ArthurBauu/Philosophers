@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_int.c                                           :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arbaudou <arbaudou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/28 17:05:19 by arbaudou          #+#    #+#             */
-/*   Updated: 2025/03/31 16:11:06 by arbaudou         ###   ########.fr       */
+/*   Created: 2024/10/14 17:08:11 by arbaudou          #+#    #+#             */
+/*   Updated: 2024/10/14 17:24:21 by arbaudou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "libft.h"
 
-short	is_int(size_t size, char **arg)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	size_t	i;
-	char	*str;
+	unsigned int	i;
+	unsigned char	*a;
+	unsigned char	*b;
 
-	i = 1;
-	while (i < size)
+	i = 0;
+	a = (unsigned char *)s1;
+	b = (unsigned char *)s2;
+	while (i < n)
 	{
-		if (ft_strlen(arg[i]) > 12)
-			return (1);
-		if (ft_atol(arg[i]) > INT_MAX || ft_atol(arg[i]) < 1)
-			return (1);
-		str = arg[i];
-		if (*str == '-' || *str == '+')
-			str++;
-		while (*str)
-		{
-			if (*str < '0' || *str > '9')
-				return (1);
-			str++;
-		}
+		if (a[i] != b[i])
+			return (a[i] - b[i]);
 		i++;
 	}
 	return (0);

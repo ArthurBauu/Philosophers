@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_int.c                                           :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arbaudou <arbaudou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/28 17:05:19 by arbaudou          #+#    #+#             */
-/*   Updated: 2025/03/31 16:11:06 by arbaudou         ###   ########.fr       */
+/*   Created: 2024/10/12 13:11:11 by arthur            #+#    #+#             */
+/*   Updated: 2025/01/10 12:59:53 by arbaudou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "libft.h"
 
-short	is_int(size_t size, char **arg)
+int	ft_putstr(char *str)
 {
-	size_t	i;
-	char	*str;
+	int	len;
 
-	i = 1;
-	while (i < size)
-	{
-		if (ft_strlen(arg[i]) > 12)
-			return (1);
-		if (ft_atol(arg[i]) > INT_MAX || ft_atol(arg[i]) < 1)
-			return (1);
-		str = arg[i];
-		if (*str == '-' || *str == '+')
-			str++;
-		while (*str)
-		{
-			if (*str < '0' || *str > '9')
-				return (1);
-			str++;
-		}
-		i++;
-	}
-	return (0);
+	if (!str)
+		str = "(null)";
+	len = 0;
+	len = ft_strplen(str);
+	return (write(1, str, len));
 }

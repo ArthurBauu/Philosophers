@@ -1,39 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_int.c                                           :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arbaudou <arbaudou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/28 17:05:19 by arbaudou          #+#    #+#             */
-/*   Updated: 2025/03/31 16:11:06 by arbaudou         ###   ########.fr       */
+/*   Created: 2024/10/22 17:48:42 by arbaudou          #+#    #+#             */
+/*   Updated: 2024/10/24 19:13:03 by arbaudou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "libft.h"
 
-short	is_int(size_t size, char **arg)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;
-	char	*str;
+	size_t	slen;
+	char	*nstr;
 
-	i = 1;
-	while (i < size)
+	slen = ft_strlen(s);
+	if (!s)
+		return (NULL);
+	i = 0;
+	if (start >= (unsigned int)slen)
+		return (ft_strdup(""));
+	if (len > slen - start)
+		len = (ft_strlen(s + start));
+	nstr = malloc(sizeof(char) * (len + 1));
+	if (!nstr)
+		return (NULL);
+	while (i < len)
 	{
-		if (ft_strlen(arg[i]) > 12)
-			return (1);
-		if (ft_atol(arg[i]) > INT_MAX || ft_atol(arg[i]) < 1)
-			return (1);
-		str = arg[i];
-		if (*str == '-' || *str == '+')
-			str++;
-		while (*str)
-		{
-			if (*str < '0' || *str > '9')
-				return (1);
-			str++;
-		}
+		nstr[i] = s[start];
 		i++;
+		start++;
 	}
-	return (0);
+	nstr[i] = '\0';
+	return (nstr);
 }

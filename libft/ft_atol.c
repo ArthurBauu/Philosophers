@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_int.c                                           :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arbaudou <arbaudou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/28 17:05:19 by arbaudou          #+#    #+#             */
-/*   Updated: 2025/03/31 16:11:06 by arbaudou         ###   ########.fr       */
+/*   Created: 2025/03/31 12:53:03 by arbaudou          #+#    #+#             */
+/*   Updated: 2025/03/31 12:53:33 by arbaudou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "libft.h"
 
-short	is_int(size_t size, char **arg)
+int	ft_atol(const char *nptr)
 {
-	size_t	i;
-	char	*str;
+	long	i;
+	int	result;
+	int	s;
 
-	i = 1;
-	while (i < size)
+	i = 0;
+	result = 0;
+	s = 1;
+	while (nptr[i] == ' ' || (nptr[i] >= '\t' && nptr[i] <= '\r'))
+		i++;
+	if (nptr[i] == '+' || nptr[i] == '-')
 	{
-		if (ft_strlen(arg[i]) > 12)
-			return (1);
-		if (ft_atol(arg[i]) > INT_MAX || ft_atol(arg[i]) < 1)
-			return (1);
-		str = arg[i];
-		if (*str == '-' || *str == '+')
-			str++;
-		while (*str)
-		{
-			if (*str < '0' || *str > '9')
-				return (1);
-			str++;
-		}
+		if (nptr[i] == '-')
+			s = -1;
 		i++;
 	}
-	return (0);
+	while (ft_isdigit(nptr[i]))
+	{
+		result = (result * 10) + (nptr[i] - '0');
+		i++;
+	}
+	return (result * s);
 }

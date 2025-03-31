@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_int.c                                           :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arbaudou <arbaudou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/28 17:05:19 by arbaudou          #+#    #+#             */
-/*   Updated: 2025/03/31 16:11:06 by arbaudou         ###   ########.fr       */
+/*   Created: 2024/10/18 16:35:47 by arbaudou          #+#    #+#             */
+/*   Updated: 2024/10/24 15:45:32 by arbaudou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "libft.h"
 
-short	is_int(size_t size, char **arg)
+char	*ft_strmapi(const char *s, char (*f)(unsigned int, char))
 {
-	size_t	i;
-	char	*str;
+	unsigned int	i;
+	char			*nstr;
 
-	i = 1;
-	while (i < size)
+	if (!s || !f)
+		return (NULL);
+	i = 0;
+	nstr = ft_strdup(s);
+	if (!nstr)
+		return (NULL);
+	while (nstr[i])
 	{
-		if (ft_strlen(arg[i]) > 12)
-			return (1);
-		if (ft_atol(arg[i]) > INT_MAX || ft_atol(arg[i]) < 1)
-			return (1);
-		str = arg[i];
-		if (*str == '-' || *str == '+')
-			str++;
-		while (*str)
-		{
-			if (*str < '0' || *str > '9')
-				return (1);
-			str++;
-		}
+		nstr[i] = f(i, nstr[i]);
 		i++;
 	}
-	return (0);
+	return (nstr);
 }
