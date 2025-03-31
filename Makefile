@@ -7,9 +7,7 @@ INCDIR = include
 # Source Files
 SRC = 		philo.c \
 			print/print.c \
-			init/init_param.c \
-			init/init_fork.c \
-			init/init_philo.c \
+			init/init.c \
 			utils/gc.c \
 			utils/is_int.c \
 			utils/get_time.c
