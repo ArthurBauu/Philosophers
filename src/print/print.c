@@ -6,7 +6,7 @@
 /*   By: arbaudou <arbaudou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:24:58 by arbaudou          #+#    #+#             */
-/*   Updated: 2025/03/31 17:14:03 by arbaudou         ###   ########.fr       */
+/*   Updated: 2025/04/06 01:26:28 by arbaudou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,18 @@ int print_philo(t_philo **philo)
 	i = 0;
 	while (philo[i])
 	{
-		printf("philo numero : %d\n", philo[i]->id);
-		printf("philo last meal : %d\n", philo[i]->since_last_meal);
-		printf("philo nbmeal : %d\n", philo[i]->nb_meal);
+		printf("philo numero : %ld\n", philo[i]->id);
+		printf("philo last meal : %ld\n", philo[i]->since_last_meal);
+		printf("philo nbmeal : %ld\n", philo[i]->nb_meal);
 		i++;
 	}
 	return (0);
+}
+void print_state(t_philo *philo, char *str, size_t time)
+{
+	if (mut_end(philo->params) && str[0] != 'd')
+		return ;
+	pthread_mutex_lock(&philo->params->print);
+	printf("%zu %ld %s\n", time, philo->id + 1, str);
+	pthread_mutex_unlock(&philo->params->print);
 }

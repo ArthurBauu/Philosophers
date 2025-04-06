@@ -6,13 +6,13 @@
 /*   By: arbaudou <arbaudou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 17:02:29 by arbaudou          #+#    #+#             */
-/*   Updated: 2025/03/31 17:33:31 by arbaudou         ###   ########.fr       */
+/*   Updated: 2025/04/06 01:14:14 by arbaudou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	philo(t_env *env, char **av)
+static int	init_struct(t_env *env, char **av)
 {
 	if (init_param(env, av))
 		return (1);
@@ -20,11 +20,11 @@ int	philo(t_env *env, char **av)
 		return (1);
 	if (init_philo(env))
 		return (1);
+	if (init(env))
+		return (1);
+	join_threads(env);
 	return (0);
 }
-
-
-
 
 int main(int ac, char **av)
 {
@@ -40,14 +40,12 @@ int main(int ac, char **av)
 		return (0);
 	}
 	env.gc = gc_init();
-	if (philo(&env, av))
+	if (init_struct(&env, av))
 	{
-		// clean(&env);
+		free_all(&env);
 		write(2, "Error\n", 6);
 		return (1);
 	}
-	print_params(env.params);
-	print_philo(env.philo);
-	// clean(&env);
-	return (1);
+	free_all(&env);
+	return (0);
 }

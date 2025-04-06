@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_param.c                                       :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arbaudou <arbaudou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 15:56:29 by arbaudou          #+#    #+#             */
-/*   Updated: 2025/03/31 17:36:52 by arbaudou         ###   ########.fr       */
+/*   Updated: 2025/04/06 01:43:46 by arbaudou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ int	init_param(t_env *env, char **av)
 	env->params = malloc(sizeof(t_params));
 	if (!env->params)
 		return (1);
-	env->params->nb_philo = ft_atoi(av[1]);
-	env->params->time_to_die = ft_atoi(av[2]);
-	env->params->time_to_eat = ft_atoi(av[3]);
-	env->params->time_to_sleep = ft_atoi(av[4]);
+	gc_add(env->gc, env->params);
+	env->params->nb_philo = ft_atol(av[1]);
+	env->params->time_to_die = ft_atol(av[2]);
+	env->params->time_to_eat = ft_atol(av[3]);
+	env->params->time_to_sleep = ft_atol(av[4]);
 	if (av[5])
-		env->params->nb_must_eat = ft_atoi(av[5]);
+		env->params->nb_must_eat = ft_atol(av[5]);
 	else
 		env->params->nb_must_eat = -1;
 	env->params->start_time = get_time();
@@ -57,15 +58,13 @@ static t_philo *create_philo(t_env *env, int id)
 	philo = malloc(sizeof(t_philo));
 	if (!philo)
 		return (NULL);
-	gc_add(env->gc, philo);
 	philo->id = id;
-	printf("philo numero : %d\n", philo->id);
 	philo->since_last_meal = 0;
-	printf("philo last meal : %d\n", philo->since_last_meal);
 	philo->nb_meal = 0;
-	printf("philo nbmeal : %d\n", philo->nb_meal);
 	philo->params = env->params;
-	// print_params(env->params);
+	pthread_mutex_init(&philo->lock_c_meal, NULL);
+	pthread_mutex_init(&philo->lock_last_meal, NULL);
+	pthread_create(&philo->thread, NULL, &routine_check, philo);
 	return (philo);
 }
 
@@ -82,12 +81,18 @@ int	init_philo(t_env *env)
 	while (i < env->params->nb_philo)
 	{
 		env->philo[i] = create_philo(env, i);
+		if (!env->philo[i])
+			return (1);
+		gc_add(env->gc, env->philo[i]);
 		i+=2;
 	}
 	i = 1;
 	while (i < env->params->nb_philo)
 	{
 		env->philo[i] = create_philo(env, i);
+		if (!env->philo[i])
+			return (1);
+		gc_add(env->gc, env->philo[i]);
 		i+=2;
 	}
 	return (0);
