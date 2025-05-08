@@ -6,7 +6,7 @@
 /*   By: arbaudou <arbaudou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 20:31:38 by arbaudou          #+#    #+#             */
-/*   Updated: 2025/04/05 21:37:13 by arbaudou         ###   ########.fr       */
+/*   Updated: 2025/05/08 19:28:38 by arbaudou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int check_time_eat(t_env *env)
 		{
 			time = get_elapsed_time(env->philo[i]);
 			update_end(env->params, 1);
-			usleep(300);
+			usleep(200);
 			print_state(env->philo[i], DEAD, time);
 			return (1);
 		}
