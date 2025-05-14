@@ -1,4 +1,4 @@
-obj/utils/get_time.o: src/utils/get_time.c include/philo.h \
+obj/utils/mut_lst_meal.o: src/utils/mut_lst_meal.c include/philo.h \
  include/struct.h include/philo.h
 include/philo.h:
 include/struct.h:
