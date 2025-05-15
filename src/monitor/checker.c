@@ -6,7 +6,7 @@
 /*   By: arbaudou <arbaudou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 20:31:38 by arbaudou          #+#    #+#             */
-/*   Updated: 2025/05/08 19:28:38 by arbaudou         ###   ########.fr       */
+/*   Updated: 2025/05/15 13:57:29 by arbaudou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,32 @@ int check_time_eat(t_env *env)
 		i++;
 	}
 	return (0);
+}
+
+int is_simulation_ended(t_params *params)
+{
+    int status;
+
+    pthread_mutex_lock(&params->dead);
+    status = params->status_dead;
+    pthread_mutex_unlock(&params->dead);
+    
+    return (status);
+}
+
+void philo_sleep(t_philo *philo)
+{
+    size_t start_time;
+    size_t elapsed;
+    
+    print_state(philo, SLEEP, get_elapsed_time(philo));
+    start_time = get_time();
+    
+    while (1)
+    {
+        elapsed = get_time() - start_time;
+        if (elapsed >= philo->params->time_to_sleep || is_simulation_ended(philo->params))
+            break;
+        usleep(1000);
+    }
 }
