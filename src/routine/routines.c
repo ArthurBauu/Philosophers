@@ -6,7 +6,7 @@
 /*   By: arbaudou <arbaudou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 23:15:49 by arbaudou          #+#    #+#             */
-/*   Updated: 2025/05/28 13:16:32 by arbaudou         ###   ########.fr       */
+/*   Updated: 2025/06/02 14:18:20 by arbaudou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ int	routine_eat(t_philo *philo)
 {
 	if (mut_end(philo->params))
 		return (1);
-	set_time_last_meal(philo, get_elapsed_time(philo));
-	incr_eat_count(philo);
-	print_state(philo, EAT, get_elapsed_time(philo));
-	ft_usleep(philo->params->time_to_eat);
+	philo_eat(philo);
 	return (0);
 }
 

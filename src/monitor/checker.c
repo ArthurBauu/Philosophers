@@ -6,7 +6,7 @@
 /*   By: arbaudou <arbaudou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 20:31:38 by arbaudou          #+#    #+#             */
-/*   Updated: 2025/05/28 13:18:56 by arbaudou         ###   ########.fr       */
+/*   Updated: 2025/06/02 14:18:42 by arbaudou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,25 @@ void	philo_sleep(t_philo *philo)
 		if (elapsed >= philo->params->time_to_sleep
 			|| is_simulation_ended(philo->params))
 			break ;
-		usleep(1000);
+		usleep(200);
 	}
+}
+
+void philo_eat(t_philo *philo)
+{
+    size_t start_time;
+    size_t elapsed;
+
+    set_time_last_meal(philo, get_elapsed_time(philo));
+    incr_eat_count(philo);
+    print_state(philo, EAT, get_elapsed_time(philo));
+    start_time = get_time();
+    while (1)
+    {
+        elapsed = get_time() - start_time;
+        if (elapsed >= philo->params->time_to_eat
+            || is_simulation_ended(philo->params))
+            break;
+        usleep(200);
+    }
 }

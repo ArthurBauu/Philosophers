@@ -6,7 +6,7 @@
 /*   By: arbaudou <arbaudou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:50:13 by arbaudou          #+#    #+#             */
-/*   Updated: 2025/05/28 13:20:06 by arbaudou         ###   ########.fr       */
+/*   Updated: 2025/06/02 14:19:06 by arbaudou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	*routine_check(void *arg);
 int		check_nb_eat(t_env *env);
 int		check_time_eat(t_env *env);
 void	philo_sleep(t_philo *philo);
+void	philo_eat(t_philo *philo);
 
 int		routine_eat(t_philo *philo);
 int		routine_sleep(t_philo *philo);
